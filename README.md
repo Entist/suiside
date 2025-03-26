@@ -14,7 +14,7 @@
 Swift Package Manager를 사용하여 설치할 수 있습니다.
 
 1. Xcode에서 프로젝트를 열고, **File > Swift Packages > Add Package Dependency...** 선택
-2. GitHub URL 입력: `[https://github.com/YourUsername/YourPackage.git](https://github.com/Entist/suiside)`
+2. GitHub URL 입력: `[https://github.com/Entist/suiside.git](https://github.com/Entist/suiside)`
 3. 버전 또는 브랜치 선택
 
 ## 사용법
