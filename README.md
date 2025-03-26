@@ -14,7 +14,7 @@
 Swift Package Manager를 사용하여 설치할 수 있습니다.
 
 1. Xcode에서 프로젝트를 열고, **File > Swift Packages > Add Package Dependency...** 선택
-2. GitHub URL 입력: `https://github.com/YourUsername/YourPackage.git`
+2. GitHub URL 입력: `[https://github.com/YourUsername/YourPackage.git](https://github.com/Entist/suiside)`
 3. 버전 또는 브랜치 선택
 
 ## 사용법
@@ -22,29 +22,68 @@ Swift Package Manager를 사용하여 설치할 수 있습니다.
 아래와 같이 사용 가능합니다:
 
 ```swift
-import SUISide
-import SwiftUI
-
 struct ContentView: View {
-    @State private var isMenuOpen = false
-
+    @State private var isMenuOpen: Bool = false
+    
     var body: some View {
-        NavigationView {
-            Text("메인 콘텐츠")
-                .sideMenu(isOpen: $isMenuOpen) {
-                    VStack {
-                        Text("사이드 메뉴 항목1")
-                        Text("사이드 메뉴 항목2")
-                    }
+        ZStack {
+            // 메인 콘텐츠 영역 (NavigationView 사용)
+            NavigationView {
+                VStack {
+                    Text("메인 콘텐츠")
+                        .font(.largeTitle)
+                        .padding()
+                    Spacer()
                 }
                 .navigationTitle("홈")
                 .toolbar {
-                    Button(action: {
-                        isMenuOpen.toggle()
-                    }) {
-                        Image(systemName: "line.horizontal.3")
+                    // 햄버거 버튼: 사이드 메뉴 토글
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            withAnimation {
+                                isMenuOpen.toggle()
+                            }
+                        }) {
+                            Image(systemName: "line.horizontal.3")
+                                .imageScale(.large)
+                        }
                     }
                 }
+            }
+            .zIndex(0)
+            
+            // 사이드 메뉴 열림 시 dim 배경 추가
+            if isMenuOpen {
+                Color.black.opacity(0.5)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation {
+                            isMenuOpen = false
+                        }
+                    }
+                    .zIndex(1)
+            }
+            
+            // SideMenu 컴포넌트를 활용한 사이드 메뉴 구현
+            SideMenu(isOpen: $isMenuOpen, menuWidth: 250) {
+                VStack(alignment: .leading, spacing: 20) {
+                    Button("홈") {
+                        withAnimation { isMenuOpen = false }
+                    }
+                    Button("프로필") {
+                        withAnimation { isMenuOpen = false }
+                    }
+                    Button("설정") {
+                        withAnimation { isMenuOpen = false }
+                    }
+                    Spacer()
+                }
+                .padding(.top, 60)
+                .padding(.horizontal, 20)
+            }
+            .zIndex(2)
         }
     }
 }
+```
+
