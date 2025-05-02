@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "suiside",
     platforms: [
-        .iOS(.v15) // 필요에 따라 지원 플랫폼을 조정
+        .iOS(.v14) // 필요에 따라 지원 플랫폼을 조정
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
